@@ -54,7 +54,6 @@ if (invalid_config && (process.env.testENV || process.argv[2] !== "test")) {
 // Discord integration - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Create a new client instance with eris
 const bot = new eris.Client(config_storage.get('discord_bot_token'));
-let send_startup_msg = true;
 
 // When the bot is connected and ready, update console
 bot.on('ready', () => {
@@ -63,12 +62,6 @@ bot.on('ready', () => {
     // Send update to console
     spinner.succeed('Connected to Discord API');
     spinner.succeed(`${chalk.blue.bold('Remindcord')} listening for ${chalk.cyan('Discord')} events`);
-    // Send connected bot message
-    if (send_startup_msg) {
-        bot.createMessage(config_storage.get('discord_bot_channel'), ":white_check_mark: **Remindcord: System Online**");
-        post_reminder();
-        send_startup_msg = false;
-    }
 });
 
 // Schedule to post a reminder every Sunday morning
